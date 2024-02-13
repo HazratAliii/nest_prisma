@@ -15,6 +15,7 @@ model User {
   email String  @unique
   name  String?
   posts Post[]
+  Comments Commnet[]
 }
 
 model Post {
@@ -24,4 +25,14 @@ model Post {
   published Boolean? @default(false)
   author    User?    @relation(fields: [authorId], references: [id])
   authorId  Int?
+  Comments Commnet[]
+}
+
+model Commnet {
+  id Int @default(autoincrement()) @id 
+  content String
+  authorId Int?
+  author User? @relation(fields: [authorId], references: [id]) 
+  commentId Int?
+  comment Post? @relation(fields: [commentId], references: [id])
 }
